@@ -24,11 +24,11 @@ import lombok.Setter;
 public class book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	
 	private String ISBN;
 	
-	private String Title;
+	private String title;
 	
 	@ManyToOne
 	@JoinColumn(name = "author_id", referencedColumnName = "id")
