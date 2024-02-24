@@ -7,19 +7,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "publishers")
+@Table(name = "categories")
 @Getter
 @Setter
-public class publisher {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String contactInfo;
-
     private String name;
     
     // books
- 	@OneToMany(mappedBy = "publisher")
- 	private List<book> books;
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
+	private List<Book> books;
 }

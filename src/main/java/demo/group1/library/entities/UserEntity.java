@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-public class userEntity {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -26,5 +28,8 @@ public class userEntity {
 
     @Enumerated(EnumType.STRING)
     private Roles roles;
+
+    @OneToMany(mappedBy = "borrowId")
+    private List<BorrowedBook> borrowedBooks;
 
 }
