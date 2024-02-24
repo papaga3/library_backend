@@ -9,7 +9,7 @@ import lombok.Setter;
 @Table(name = "users")
 @Getter
 @Setter
-public class user {
+public class userEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -24,5 +24,7 @@ public class user {
 
     private String password;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Roles roles;
+
 }
