@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +20,7 @@ import lombok.Setter;
 @Table(name = "books")
 @Getter
 @Setter
-public class book {
+public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,9 +29,9 @@ public class book {
 	
 	private String title;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "author_id", referencedColumnName = "id")
-	private author author;
+	private Author author;
 	
 	private String language;
 	
@@ -44,11 +43,11 @@ public class book {
 		joinColumns = @JoinColumn(name="book_id"),
 		inverseJoinColumns = @JoinColumn(name="category_id", referencedColumnName = "id")
 	)
-	private List<category> categories;
+	private List<Category> categories;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "publisher_id", referencedColumnName = "id")
-	private publisher publisher;
+	private Publisher publisher;
 	
 	private int quantity;
 }

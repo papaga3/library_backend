@@ -10,11 +10,14 @@ import java.util.Date;
 @Table(name = "borrowed_books")
 @Getter
 @Setter
-public class borrowedBook {
+public class BorrowedBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long borrowId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private UserEntity borrowId;
     private Date borrowedDate;
     private Date returnDate;
 

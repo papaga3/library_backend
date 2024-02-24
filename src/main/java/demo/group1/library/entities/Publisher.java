@@ -7,22 +7,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "authors")
+@Table(name = "publishers")
 @Getter
 @Setter
-public class author {
-	
+public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String first_name;
-	
-	private String last_name;
-	
-	private String bio;
-	
-	// books
-	@OneToMany(mappedBy = "author")
-	private List<book> books;
+    private Long id;
+
+    private String contactInfo;
+
+    private String name;
+    
+    // books
+ 	@OneToMany(mappedBy = "publisher")
+ 	private List<Book> books;
 }
