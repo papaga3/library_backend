@@ -8,11 +8,13 @@ import demo.group1.library.dto.response.PaginatedResponse;
 
 @Service
 public interface AuthorServiceInterface {
-	public PaginatedResponse<AuthorResponse> findAllAuthors(
+	// Will return all authors if partialName is an empty string
+	public PaginatedResponse<AuthorResponse> findAuthors(
 			int pageNo, 
 			int pageSize,
 			String sortBy,
-			String sortDir
+			String sortDir,
+			String partialName
 	);
 	
 	public AuthorResponse findAuthorById(Long id) throws Exception;

@@ -26,18 +26,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthorController {
 	private final AuthorServiceInterface authorService;
-	
+
 	@GetMapping("/authors")
 	public ResponseEntity<PaginatedResponse<AuthorResponse>> findAllAuthors(
-			   @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-	            @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
-	            @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAUT_SORT_BY, required = false) String sortBy,
-	            @RequestParam(name = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
-	) {
-		 PaginatedResponse<AuthorResponse> authorResponse = authorService.findAllAuthors(pageNo, pageSize, sortBy, sortDir);
-	     return new ResponseEntity<>(authorResponse, HttpStatus.OK);
+			@RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+			@RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+			@RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAUT_SORT_BY, required = false) String sortBy,
+			@RequestParam(name = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir,
+			@RequestParam(name = "authorPartialName", defaultValue = "", required = false) String partialName) {
+		PaginatedResponse<AuthorResponse> authorResponse = authorService.findAuthors(pageNo, pageSize, sortBy, sortDir,
+				partialName);
+		return new ResponseEntity<>(authorResponse, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/authors/{id}")
 	public ResponseEntity<AuthorResponse> findAuthorById(@PathVariable Long id) {
 		try {
@@ -47,35 +48,28 @@ public class AuthorController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PostMapping("/authors")
 	public ResponseEntity<String> addNewAuthor(@Valid @RequestBody AuthorRequest authorDTO) {
 		authorService.addAuthor(authorDTO);
 		return new ResponseEntity<>("Author added", HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/authors/{id}")
-	public ResponseEntity<String> updateAuthorById(
-			@PathVariable Long id, 
-			@RequestBody AuthorRequest authorDTO
-	) 
-	{
+	public ResponseEntity<String> updateAuthorById(@PathVariable Long id, @RequestBody AuthorRequest authorDTO) {
 		try {
 			authorService.updateAuthor(id, authorDTO);
-			return new ResponseEntity<>("Author added", HttpStatus.OK);
+			return new ResponseEntity<>("Author updated", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@DeleteMapping("/authors/{id}")
-	public ResponseEntity<String> deleteAuthorById(
-			@PathVariable Long id
-	) 
-	{
+	public ResponseEntity<String> deleteAuthorById(@PathVariable Long id) {
 		try {
 			authorService.deleteAuthor(id);
-			return new ResponseEntity<>("Author added", HttpStatus.OK);
+			return new ResponseEntity<>("Author deleted", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}

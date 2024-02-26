@@ -29,21 +29,27 @@ public class AuthorServiceImpl implements AuthorServiceInterface {
 	private static final Logger logger = LogManager.getLogger(AuthorServiceImpl.class);
 	
 	@Override
-	public PaginatedResponse<AuthorResponse> findAllAuthors(
+	public PaginatedResponse<AuthorResponse> findAuthors(
 			int pageNo, 
 			int pageSize,
 			String sortBy,
-			String sortDir
+			String sortDir,
+			String partialName
 	) {
 		// check sort direction
-		  // check sort direction
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         // create Pageable instance
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-
-        Page<Author> authorPage = authorRepo.findAll(pageable);
+        
+        Page<Author> authorPage;
+        
+        if(partialName.isEmpty() || partialName.equals("")) {
+            authorPage = authorRepo.findAll(pageable);
+        } else {
+        	authorPage = authorRepo.findByPartialName(pageable, partialName);
+        }
 
         // get content from page object
         List<Author> authorList = authorPage.getContent();

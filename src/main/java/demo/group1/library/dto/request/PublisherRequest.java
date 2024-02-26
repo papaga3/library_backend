@@ -3,17 +3,16 @@ package demo.group1.library.dto.request;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class AuthorRequest {
+public class PublisherRequest {
+	@NotEmpty
+	private String contactInfo;
 	
 	@NotEmpty
-	private String firstName;
-	
-	@NotEmpty
-	private String lastName;
+	private String name;
 }
