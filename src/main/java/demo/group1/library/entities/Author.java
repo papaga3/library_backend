@@ -16,9 +16,9 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String first_name;
+	private String firstName;
 	
-	private String last_name;
+	private String lastName;
 	
 	private String bio;
 	
