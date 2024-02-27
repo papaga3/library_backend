@@ -101,6 +101,7 @@ public class AuthorServiceImpl implements AuthorServiceInterface {
 		Author newAuthor = existingAuthor.get();
 		newAuthor.setFirstName(authorDTO.getFirstName());
 		newAuthor.setLastName(authorDTO.getLastName());
+		newAuthor.setBio(authorDTO.getBio());
 		
 		authorRepo.save(newAuthor);
 	}

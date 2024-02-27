@@ -17,4 +17,7 @@ public class AuthorResponse {
 	
 	@NotEmpty
 	private String lastName;
+	
+	@NotEmpty
+	private String bio;
 }
