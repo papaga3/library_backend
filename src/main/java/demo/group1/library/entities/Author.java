@@ -23,6 +23,6 @@ public class Author {
 	private String bio;
 	
 	// books
-	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "author")
 	private List<Book> books;
 }
