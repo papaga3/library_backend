@@ -13,5 +13,4 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
 			+ "LOCATE(:partialName, a.firstName)<>0 "
 			+ "OR LOCATE(:partialName, a.lastName)<>0")
 	Page<Author> findByPartialName(Pageable pageable, String partialName);
-	
 }

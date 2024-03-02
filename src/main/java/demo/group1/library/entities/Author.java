@@ -25,4 +25,12 @@ public class Author {
 	// books
 	@OneToMany(mappedBy = "author")
 	private List<Book> books;
+	
+	public void addBook(Book b) {
+		 books.add(b);
+	}
+	
+	public boolean removeBook(Book b) {
+		return books.remove(b);
+	}
 }

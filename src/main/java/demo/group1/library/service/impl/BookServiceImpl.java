@@ -15,6 +15,7 @@ import demo.group1.library.dto.request.BookRequest;
 import demo.group1.library.dto.response.AuthorResponse;
 import demo.group1.library.dto.response.BookResponse;
 import demo.group1.library.dto.response.PaginatedResponse;
+import demo.group1.library.entities.Author;
 import demo.group1.library.entities.Book;
 import demo.group1.library.repository.AuthorRepository;
 import demo.group1.library.repository.BookRepository;
@@ -58,7 +59,7 @@ public class BookServiceImpl implements BookServiceInterface {
 	public BookResponse findBookById(Long id) throws Exception {
 		var book = bookRepo.findById(id);
 		if(!book.isPresent()) {
-			String message = "Cannot find author by id: " + id;
+			String message = "Cannot find book by id: " + id;
 			logger.error(message);
 			
 			// TODO: integrate with new exception type
@@ -68,8 +69,28 @@ public class BookServiceImpl implements BookServiceInterface {
 		return Converter.toModel(book, BookResponse.class);
 	}
 
-	public void addBook(BookRequest bookDTO) {
-
+	public void addBook(BookRequest bookDTO) throws Exception {
+		var author = authorRepo.findById(bookDTO.getAuthorId());
+		if(author.isEmpty()) {
+			String message = "Invalid author ID: " + bookDTO.getAuthorId();
+			logger.error(message);
+			
+			// TODO: integrate with new exception type
+			throw new Exception(message);
+		}
+		
+		var publisher = publisherRepo.findById(bookDTO.getPublisherId());
+		
+		if(publisher.isEmpty()) {
+			String message = "Invalid publisher ID: " + bookDTO.getAuthorId();
+			logger.error(message);
+			
+			// TODO: integrate with new exception type
+			throw new Exception(message);
+		}
+		
+		
+		
 	}
 
 	public void updateBook(Long id, BookRequest authorDTO) throws Exception {

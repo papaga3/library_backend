@@ -71,7 +71,7 @@ public class AuthorController {
 			authorService.deleteAuthor(id);
 			return new ResponseEntity<>("Author deleted", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 }

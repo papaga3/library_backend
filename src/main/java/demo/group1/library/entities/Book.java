@@ -14,12 +14,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "books")
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,4 +52,12 @@ public class Book {
 	private Publisher publisher;
 	
 	private int quantity;
+	
+	public void addCategory(Category b) {
+		 categories.add(b);
+	}
+	
+	public boolean removeCategory(Category b) {
+		return categories.remove(b);
+	}
 }

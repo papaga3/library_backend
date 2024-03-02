@@ -17,7 +17,7 @@ public interface BookServiceInterface {
 	
 	public BookResponse findBookById(Long id) throws Exception;
 	
-	public void addBook(BookRequest bookDTO);
+	public void addBook(BookRequest bookDTO) throws Exception;
 	
 	public void updateBook(Long id, BookRequest authorDTO) throws Exception;
 	

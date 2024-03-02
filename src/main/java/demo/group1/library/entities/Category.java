@@ -20,4 +20,12 @@ public class Category {
     // books
     @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
 	private List<Book> books;
+    
+    public void addBook(Book b) {
+		 books.add(b);
+	}
+	
+	public boolean removeBook(Book b) {
+		return books.remove(b);
+	}
 }

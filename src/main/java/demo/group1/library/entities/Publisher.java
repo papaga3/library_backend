@@ -22,4 +22,12 @@ public class Publisher {
     // books
  	@OneToMany(mappedBy = "publisher")
  	private List<Book> books;
+ 	
+ 	public void addBook(Book b) {
+		 books.add(b);
+	}
+	
+	public boolean removeBook(Book b) {
+		return books.remove(b);
+	}
 }
